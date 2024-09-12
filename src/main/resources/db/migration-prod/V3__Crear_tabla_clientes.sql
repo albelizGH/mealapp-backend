@@ -2,7 +2,7 @@ CREATE TABLE `clientes` (
 	`id` BIGINT(19) NOT NULL AUTO_INCREMENT,
 	`nombre` VARCHAR(20) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
 	`apellido` VARCHAR(20) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
-	`documento` INT(10) NOT NULL,
+	`documento` VARCHAR(20) NOT NULL,
 	`correo` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
 	`contrasenia` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
 	`activo` TINYINT DEFAULT '1',
