@@ -1,4 +1,4 @@
-package com.pentabyte.projects.mealapp;
+package com.alejobeliz.pentabyte.projects.mealapp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

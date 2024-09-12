@@ -1,4 +1,4 @@
-package com.pentabyte.projects.mealapp;
+package com.alejobeliz.pentabyte.projects.mealapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
