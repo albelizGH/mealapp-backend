@@ -9,7 +9,7 @@ CREATE TABLE `disponibilidad_semanal` (
 	`viernes` TINYINT(3) NOT NULL DEFAULT '0',
 	PRIMARY KEY (`id`) USING BTREE,
 	INDEX `plato_id_disponibilidad` (`plato_id`) USING BTREE,
-	CONSTRAINT `plato_id_disponibilidad` FOREIGN KEY (`plato_id`) REFERENCES `platos` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION
+	CONSTRAINT `plato_id_disponibilidad` FOREIGN KEY (`plato_id`) REFERENCES `platos` (`id`) ON UPDATE NO ACTION ON DELETE CASCADE
 )
 COLLATE='utf8mb4_0900_ai_ci'
 ENGINE=InnoDB
