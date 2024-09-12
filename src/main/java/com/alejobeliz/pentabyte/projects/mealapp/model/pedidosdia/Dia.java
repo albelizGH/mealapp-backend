@@ -1,4 +1,4 @@
-package com.alejobeliz.pentabyte.projects.mealapp.domain.pedidosdia;
+package com.alejobeliz.pentabyte.projects.mealapp.model.pedidosdia;
 
 public enum Dia {
     LUNES("Lunes"),

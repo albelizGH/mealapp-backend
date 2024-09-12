@@ -1,4 +1,4 @@
-package com.alejobeliz.pentabyte.projects.mealapp.domain.tipodeplato;
+package com.alejobeliz.pentabyte.projects.mealapp.model.tipodeplato;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

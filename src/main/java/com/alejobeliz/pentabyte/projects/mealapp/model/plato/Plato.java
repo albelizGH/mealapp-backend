@@ -1,6 +1,6 @@
-package com.alejobeliz.pentabyte.projects.mealapp.domain.plato;
+package com.alejobeliz.pentabyte.projects.mealapp.model.plato;
 
-import com.alejobeliz.pentabyte.projects.mealapp.domain.tipodeplato.TipoDePlato;
+import com.alejobeliz.pentabyte.projects.mealapp.model.tipodeplato.TipoDePlato;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

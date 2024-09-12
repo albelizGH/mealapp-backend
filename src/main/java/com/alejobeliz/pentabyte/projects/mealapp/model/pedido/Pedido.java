@@ -1,6 +1,6 @@
-package com.alejobeliz.pentabyte.projects.mealapp.domain.pedido;
+package com.alejobeliz.pentabyte.projects.mealapp.model.pedido;
 
-import com.alejobeliz.pentabyte.projects.mealapp.domain.cliente.Cliente;
+import com.alejobeliz.pentabyte.projects.mealapp.model.cliente.Cliente;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

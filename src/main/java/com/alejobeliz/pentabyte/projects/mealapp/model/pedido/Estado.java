@@ -1,4 +1,4 @@
-package com.alejobeliz.pentabyte.projects.mealapp.domain.pedido;
+package com.alejobeliz.pentabyte.projects.mealapp.model.pedido;
 
 public enum Estado {
     PENDIENTE("Pendiente"),

@@ -1,30 +1,34 @@
-package com.alejobeliz.pentabyte.projects.mealapp.domain.disponibilidadsemanal;
+package com.alejobeliz.pentabyte.projects.mealapp.model.cliente;
 
-
-import com.alejobeliz.pentabyte.projects.mealapp.domain.plato.Plato;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "DisponibilidadSemanal")
-@Table(name = "disponibilidad_semanal")
-public class DisponibilidadSemanal {
+@AllArgsConstructor
+@Entity(name = "Cliente")
+@Table(name = "clientes")
+public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-  @Column(name = "semana_inicio")
-    private Date semanaDeInicio;
+    @Column(name = "nombre")
+    private String nombre;
 
-    @ManyToOne
-    @JoinColumn(name = "plato_id")
-    private Plato plato;
+    @Column(name = "apellido")
+    private String apellido;
+
+    @Column(name = "documento")
+    private String documento;
+
+    @Column(name = "correo")
+    private String correo;
+
+    @Column(name = "contrasenia")
+    private String contrasenia;
 
     @Column(name = "lunes")
     private Boolean lunes;
