@@ -1,10 +1,16 @@
 package com.alejobeliz.pentabyte.projects.mealapp.model.plato;
 
+import com.alejobeliz.pentabyte.projects.mealapp.model.detallepedidos.DetallePedido;
+import com.alejobeliz.pentabyte.projects.mealapp.model.disponibilidadsemanal.DisponibilidadSemanal;
+import com.alejobeliz.pentabyte.projects.mealapp.model.favorito.Favorito;
 import com.alejobeliz.pentabyte.projects.mealapp.model.tipodeplato.TipoDePlato;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -38,4 +44,15 @@ public class Plato {
     @JoinColumn(name = "tipo_plato_id")
     private TipoDePlato tipoDePlato;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "plato")
+    private List<Favorito> favoritos;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "plato")
+    private List<DisponibilidadSemanal> disponibilidadesSemanales;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "plato")
+    private List<DetallePedido> detallesDePedidos;
 }
