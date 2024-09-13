@@ -1,11 +1,11 @@
 package com.alejobeliz.pentabyte.projects.mealapp.model.pedidosdia;
 
 public enum Dia {
-    LUNES("Lunes"),
-    MARTES("Martes"),
-    MIERCOLES("Miercoles"),
-    JUEVES("Jueves"),
-    VIERNES("Viernes");
+    Lunes("Lunes"),
+    Martes("Martes"),
+    Miercoles("Miercoles"),
+    Jueves("Jueves"),
+    Viernes("Viernes");
 
     private String dia;
 

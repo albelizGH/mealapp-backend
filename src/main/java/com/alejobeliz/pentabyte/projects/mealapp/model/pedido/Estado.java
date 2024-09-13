@@ -1,9 +1,9 @@
 package com.alejobeliz.pentabyte.projects.mealapp.model.pedido;
 
 public enum Estado {
-    PENDIENTE("Pendiente"),
-    CONFIRMADO("Confirmado"),
-    ENTREGADO("Entregado");
+    Pendiente("Pendiente"),
+    Confirmado("Confirmado"),
+    Entregado("Entregado");
 
     private String estado;
 
