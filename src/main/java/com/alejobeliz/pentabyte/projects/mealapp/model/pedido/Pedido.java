@@ -1,15 +1,12 @@
 package com.alejobeliz.pentabyte.projects.mealapp.model.pedido;
 
 import com.alejobeliz.pentabyte.projects.mealapp.model.cliente.Cliente;
-import com.alejobeliz.pentabyte.projects.mealapp.model.pedidosdia.PedidosDia;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;
 
 
 @Data
@@ -32,13 +29,9 @@ public class Pedido {
     @Column(name = "estado")
     private Estado estado;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="cliente_id")
     private Cliente cliente;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "pedido")
-    private List<PedidosDia> pedidosDias;
 
 
 }

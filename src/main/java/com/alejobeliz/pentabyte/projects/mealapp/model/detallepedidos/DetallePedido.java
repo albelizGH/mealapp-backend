@@ -1,6 +1,6 @@
 package com.alejobeliz.pentabyte.projects.mealapp.model.detallepedidos;
 
-import com.alejobeliz.pentabyte.projects.mealapp.model.pedidosdia.PedidosDia;
+import com.alejobeliz.pentabyte.projects.mealapp.model.pedidosdia.PedidoDia;
 import com.alejobeliz.pentabyte.projects.mealapp.model.plato.Plato;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,11 +24,11 @@ public class DetallePedido {
     @Column(name = "cantidad")
     private Integer cantidad;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pedido_dia_id")
-    private PedidosDia pedidosDia;
+    private PedidoDia pedidoDia;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "plato_id")
     private Plato plato;
 }

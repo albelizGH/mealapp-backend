@@ -1,14 +1,9 @@
 package com.alejobeliz.pentabyte.projects.mealapp.model.cliente;
 
-import com.alejobeliz.pentabyte.projects.mealapp.model.favorito.Favorito;
-import com.alejobeliz.pentabyte.projects.mealapp.model.pedido.Pedido;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -50,11 +45,4 @@ public class Cliente {
     @Column(name = "viernes")
     private Boolean viernes;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "cliente")
-    private List<Pedido> pedidos;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "cliente")
-    private List<Favorito> favoritos;
 }
