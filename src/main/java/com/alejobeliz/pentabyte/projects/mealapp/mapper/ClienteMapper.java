@@ -1,6 +1,6 @@
 package com.alejobeliz.pentabyte.projects.mealapp.mapper;
 
-import com.alejobeliz.pentabyte.projects.mealapp.dto.ClienteDto;
+import com.alejobeliz.pentabyte.projects.mealapp.dto.Cliente.ClienteDto;
 import com.alejobeliz.pentabyte.projects.mealapp.model.cliente.Cliente;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;

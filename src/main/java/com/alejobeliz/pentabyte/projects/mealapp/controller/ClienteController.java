@@ -1,6 +1,6 @@
 package com.alejobeliz.pentabyte.projects.mealapp.controller;
 
-import com.alejobeliz.pentabyte.projects.mealapp.dto.ClienteDto;
+import com.alejobeliz.pentabyte.projects.mealapp.dto.Cliente.ClienteDto;
 import com.alejobeliz.pentabyte.projects.mealapp.mapper.ClienteMapper;
 import com.alejobeliz.pentabyte.projects.mealapp.model.cliente.Cliente;
 import com.alejobeliz.pentabyte.projects.mealapp.repository.ClienteRepository;
@@ -32,7 +32,7 @@ public class ClienteController {
         Optional<Cliente> clienteOpcional = clienteRepository.findById(id);
 
         if (!clienteOpcional.isPresent()) {
-            throw new RuntimeException("No hay plato que correspondan a ese Id");
+            throw new RuntimeException("No hay cliente que correspondan a ese Id");
         }
         return clienteMapper.clienteToClienteDto(clienteOpcional.get());
     }

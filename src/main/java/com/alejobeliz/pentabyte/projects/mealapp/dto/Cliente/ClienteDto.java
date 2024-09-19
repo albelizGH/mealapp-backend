@@ -1,4 +1,4 @@
-package com.alejobeliz.pentabyte.projects.mealapp.dto;
+package com.alejobeliz.pentabyte.projects.mealapp.dto.Cliente;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -12,5 +12,4 @@ public record ClienteDto(String id,
                          Boolean miercoles,
                          Boolean jueves,
                          Boolean viernes) {
-    public ClienteDto {}
 }
