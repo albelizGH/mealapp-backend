@@ -8,7 +8,6 @@ import com.alejobeliz.pentabyte.projects.mealapp.model.cliente.Cliente;
 import com.alejobeliz.pentabyte.projects.mealapp.repository.ClienteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,7 +30,7 @@ public class ClienteService {
         return clientes.stream().map(cliente -> mapper.map(cliente,ClienteDto.class)).collect(Collectors.toList());
     }*/
 
-    //FIJARME POR QUE NO ANDA EL PAGEABLE
+    //FIJARME POR QUE NO ANDA EL PAGEAB
     public List<ClienteDto> getAllClientes(){
         List<Cliente> clientes = clienteRepository.findAll();
         return clientes.stream().map(cliente -> mapper.map(cliente,ClienteDto.class)).collect(Collectors.toList());
