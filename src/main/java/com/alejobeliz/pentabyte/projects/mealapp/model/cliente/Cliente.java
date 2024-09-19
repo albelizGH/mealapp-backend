@@ -1,5 +1,6 @@
 package com.alejobeliz.pentabyte.projects.mealapp.model.cliente;
 
+import com.alejobeliz.pentabyte.projects.mealapp.dto.Cliente.ClienteDiasLaboralesDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -44,5 +45,4 @@ public class Cliente {
 
     @Column(name = "viernes")
     private Boolean viernes;
-
 }

@@ -1,45 +1,44 @@
 package com.alejobeliz.pentabyte.projects.mealapp.controller;
 
+import com.alejobeliz.pentabyte.projects.mealapp.dto.Cliente.ClienteDiasLaboralesDto;
 import com.alejobeliz.pentabyte.projects.mealapp.dto.Cliente.ClienteDto;
-import com.alejobeliz.pentabyte.projects.mealapp.mapper.ClienteMapper;
-import com.alejobeliz.pentabyte.projects.mealapp.model.cliente.Cliente;
-import com.alejobeliz.pentabyte.projects.mealapp.repository.ClienteRepository;
+import com.alejobeliz.pentabyte.projects.mealapp.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping("/api/clientes")
 public class ClienteController {
 
-    private ClienteRepository clienteRepository;
-    private ClienteMapper clienteMapper;
+    private ClienteService clienteService;
 
     @Autowired
-    public ClienteController(ClienteRepository clienteRepository,ClienteMapper clienteMapper) {
-        this.clienteRepository=clienteRepository;
-        this.clienteMapper=clienteMapper;
-
+    public ClienteController(ClienteService clienteService) {
+        this.clienteService = clienteService;
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{id}")
-    public ClienteDto getDetallesCliente(@PathVariable Long id) {
-
-        Optional<Cliente> clienteOpcional = clienteRepository.findById(id);
-
-        if (!clienteOpcional.isPresent()) {
-            throw new RuntimeException("No hay cliente que correspondan a ese Id");
-        }
-        return clienteMapper.clienteToClienteDto(clienteOpcional.get());
+    public ResponseEntity<ClienteDto> getCliente(@PathVariable Long id) {
+        ClienteDto clienteDto = clienteService.getCliente(id);
+        return ResponseEntity.ok(clienteDto);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
-    public List<ClienteDto> getAllCliente() {
-        return clienteRepository.findAll().stream().map(cliente -> clienteMapper.clienteToClienteDto(cliente)).collect(Collectors.toList());
+    public ResponseEntity<List<ClienteDto>> getAllClientes() {
+        List<ClienteDto> clientes = clienteService.getAllClientes();
+        return ResponseEntity.ok(clientes);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/laboral/{id}")
+    public ResponseEntity<ClienteDiasLaboralesDto> getDiasLaborales(@PathVariable Long id) {
+        ClienteDiasLaboralesDto clienteDiasLaboralesDto = clienteService.getDiasLaborales(id);
+        return ResponseEntity.ok(clienteDiasLaboralesDto);
     }
 }
