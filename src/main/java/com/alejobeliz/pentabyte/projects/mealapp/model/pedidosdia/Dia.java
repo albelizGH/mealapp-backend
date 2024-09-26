@@ -3,7 +3,7 @@ package com.alejobeliz.pentabyte.projects.mealapp.model.pedidosdia;
 public enum Dia {
     Lunes("Lunes"),
     Martes("Martes"),
-    Miercoles("Miercoles"),
+    Miercoles("Miércoles"),
     Jueves("Jueves"),
     Viernes("Viernes");
 
@@ -21,6 +21,5 @@ public enum Dia {
     public String toString(){
         return dia;
     }
-
 
 }
