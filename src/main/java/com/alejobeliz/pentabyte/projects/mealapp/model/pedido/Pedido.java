@@ -6,7 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
 
 
 @Data
@@ -20,7 +23,7 @@ public class Pedido {
     private Long id;
 
     @Column(name = "fecha_pedido")
-    private LocalDate fechaDePedido;
+    private LocalDateTime fechaDePedido;
 
     @Column(name = "semana_entrega")
     private LocalDate semanaDeEntrega;
@@ -33,5 +36,12 @@ public class Pedido {
     @JoinColumn(name="cliente_id")
     private Cliente cliente;
 
+    public Pedido(Cliente cliente){
+        this.fechaDePedido=LocalDateTime.now();
+        LocalDate fechaDePedidoLocal = fechaDePedido.toLocalDate();
+        this.semanaDeEntrega = fechaDePedidoLocal.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+        this.estado=Estado.Pendiente;
+        this.cliente=cliente;
+    }
 
 }
