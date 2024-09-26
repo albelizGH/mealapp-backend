@@ -24,4 +24,9 @@ public class PedidoDia {
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;
 
+    public PedidoDia(Dia dia, Pedido pedido){
+        this.dia=dia;
+        this.pedido=pedido;
+    }
+
 }
