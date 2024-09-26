@@ -22,6 +22,9 @@ public class Plato {
     @Column(name = "descripcion")
     private String descripcion;
 
+    @Column(name = "etiqueta")
+    private String etiqueta;
+
     @Column(name = "imagen")
     private String imagen;
 
@@ -32,7 +35,7 @@ public class Plato {
     private Integer stock;
 
     @Column(name = "cantidad_veces_pedido")
-    private Integer cantidadDeVecesPedido;
+    private static Integer cantidadDeVecesPedido;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tipo_plato_id")
