@@ -1,36 +1,34 @@
 package com.alejobeliz.pentabyte.projects.mealapp.controller;
 
-import com.alejobeliz.pentabyte.projects.mealapp.model.plato.Plato;
-import com.alejobeliz.pentabyte.projects.mealapp.repository.PlatoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.alejobeliz.pentabyte.projects.mealapp.model.plato.dto.PlatoDto;
+
+import com.alejobeliz.pentabyte.projects.mealapp.service.PlatoService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/platos")
 public class PlatoController {
 
-    @Autowired
-    PlatoRepository platoRepository;
+    PlatoService platoService;
+
+    public PlatoController(PlatoService platoService) {
+        this.platoService = platoService;
+    }
 
     @GetMapping()
-    public List<Plato> getPlatos(){
-        return platoRepository.findAll();
+    public List<PlatoDto> getPlatos(){
+        return platoService.getAllPlatos();
     }
 
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{id}")
-    public Plato obtenerPlatoporId(@PathVariable Long id) {
-        Optional<Plato> platoOptional = platoRepository.findById(id);
-        if (!platoOptional.isPresent()) {
-            throw new RuntimeException("No hay plato que correspondan a ese Id");
-        }
-        return platoOptional.get();
+    public ResponseEntity<PlatoDto> getCliente(@PathVariable Long id) {
+        PlatoDto platoDto = platoService.getPlato(id);
+        return ResponseEntity.ok(platoDto);
     }
 
 }
