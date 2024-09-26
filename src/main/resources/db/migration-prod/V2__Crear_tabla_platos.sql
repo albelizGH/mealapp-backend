@@ -2,6 +2,7 @@ CREATE TABLE `platos` (
 	`id` BIGINT(19) NOT NULL AUTO_INCREMENT,
 	`nombre` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
 	`descripcion` TEXT NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`etiqueta` VARCHAR(50) COLLATE 'utf8mb4_0900_ai_ci',
 	`imagen` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
 	`cantidad_maxima` TINYINT(3) NOT NULL,
 	`stock` INT(10) NULL DEFAULT '0',

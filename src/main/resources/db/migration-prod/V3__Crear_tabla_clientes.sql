@@ -5,6 +5,8 @@ CREATE TABLE `clientes` (
 	`documento` VARCHAR(20) NOT NULL,
 	`correo` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
 	`contrasenia` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`fecha_alta` DATETIME NOT NULL,
+	`fecha_baja` DATETIME DEFAULT NULL,
 	`activo` TINYINT DEFAULT '1',
 	`lunes` TINYINT(3) NOT NULL DEFAULT '0',
 	`martes` TINYINT(3) NOT NULL DEFAULT '0',
