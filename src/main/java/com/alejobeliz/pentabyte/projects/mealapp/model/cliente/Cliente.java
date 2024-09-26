@@ -1,14 +1,15 @@
 package com.alejobeliz.pentabyte.projects.mealapp.model.cliente;
 
-import com.alejobeliz.pentabyte.projects.mealapp.dto.Cliente.ClienteDiasLaboralesDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity(name = "Cliente")
 @Table(name = "clientes")
 public class Cliente {
@@ -31,6 +32,12 @@ public class Cliente {
     @Column(name = "contrasenia")
     private String contrasenia;
 
+    @Column(name="fecha_alta")
+    private LocalDateTime fechaDeAlta;
+
+    @Column(name="fecha_baja")
+    private LocalDateTime fechaDeBaja;
+
     @Column(name = "lunes")
     private Boolean lunes;
 
@@ -45,4 +52,19 @@ public class Cliente {
 
     @Column(name = "viernes")
     private Boolean viernes;
+
+    public Cliente(String nombre, String apellido, String documento, String correo, String contrasenia, LocalDate fechaDeAlta, LocalDate fechaDeBaja, Boolean lunes, Boolean martes, Boolean miercoles, Boolean jueves, Boolean viernes) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.documento = documento;
+        this.correo = correo;
+        this.contrasenia = contrasenia;
+        this.fechaDeAlta = LocalDateTime.now();
+        this.fechaDeBaja = null;
+        this.lunes = lunes;
+        this.martes = martes;
+        this.miercoles = miercoles;
+        this.jueves = jueves;
+        this.viernes = viernes;
+    }
 }
