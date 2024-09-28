@@ -1,11 +1,11 @@
 package com.alejobeliz.pentabyte.projects.mealapp.model.cliente;
 
+import com.alejobeliz.pentabyte.projects.mealapp.model.cliente.dto.ClienteDatosPersonalesDto;
+import com.alejobeliz.pentabyte.projects.mealapp.model.cliente.dto.ClienteDiasLaboralesDto;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -32,6 +32,9 @@ public class Cliente {
     @Column(name = "contrasenia")
     private String contrasenia;
 
+    @Column(name = "activo")
+    private Boolean activo;
+
     @Column(name="fecha_alta")
     private LocalDateTime fechaDeAlta;
 
@@ -53,18 +56,47 @@ public class Cliente {
     @Column(name = "viernes")
     private Boolean viernes;
 
-    public Cliente(String nombre, String apellido, String documento, String correo, String contrasenia, LocalDate fechaDeAlta, LocalDate fechaDeBaja, Boolean lunes, Boolean martes, Boolean miercoles, Boolean jueves, Boolean viernes) {
+    public Cliente(String nombre, String apellido, String documento, String correo, String contrasenia) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.documento = documento;
         this.correo = correo;
         this.contrasenia = contrasenia;
+        this.activo=true;
         this.fechaDeAlta = LocalDateTime.now();
         this.fechaDeBaja = null;
-        this.lunes = lunes;
-        this.martes = martes;
-        this.miercoles = miercoles;
-        this.jueves = jueves;
-        this.viernes = viernes;
+        this.lunes = false;
+        this.martes = false;
+        this.miercoles = false;
+        this.jueves = false;
+        this.viernes = false;
+    }
+
+    public void modificarDiasLaborales(Cliente cliente, ClienteDiasLaboralesDto diasLaboralesDto) {
+        cliente.setLunes(diasLaboralesDto.lunes());
+        cliente.setMartes(diasLaboralesDto.martes());
+        cliente.setMiercoles(diasLaboralesDto.miercoles());
+        cliente.setJueves(diasLaboralesDto.jueves());
+        cliente.setViernes(diasLaboralesDto.viernes());
+    }
+
+    public void modificarDatosPersonales(Cliente cliente, ClienteDatosPersonalesDto datosPersonalesDto) {
+        if (datosPersonalesDto.nombre() != null) {
+            cliente.setNombre(datosPersonalesDto.nombre().trim());
+        }
+        if (datosPersonalesDto.apellido() != null) {
+            cliente.setApellido(datosPersonalesDto.apellido().trim());
+        }
+        if (datosPersonalesDto.documento() != null) {
+            cliente.setDocumento(datosPersonalesDto.documento().trim());
+        }
+    }
+
+    public void desactivarCliente(){
+        this.activo=false;
+    }
+
+    public void activarCliente(){
+        this.activo=true;
     }
 }
