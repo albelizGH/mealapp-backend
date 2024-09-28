@@ -20,7 +20,7 @@ public class PedidoDia {
     @Column(name = "dia")
     private Dia dia;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "pedido_id")
     private Pedido pedido;
 

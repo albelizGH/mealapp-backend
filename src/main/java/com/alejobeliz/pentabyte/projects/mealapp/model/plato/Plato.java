@@ -37,7 +37,7 @@ public class Plato {
     @Column(name = "cantidad_veces_pedido")
     private static Integer cantidadDeVecesPedido;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)//Si traigo un plato que el tipo de plato ya venga cargado
     @JoinColumn(name = "tipo_plato_id")
     private TipoDePlato tipoDePlato;
 }

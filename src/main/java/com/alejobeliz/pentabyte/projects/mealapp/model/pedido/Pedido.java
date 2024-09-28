@@ -32,7 +32,7 @@ public class Pedido {
     @Column(name = "estado")
     private Estado estado;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name="cliente_id")
     private Cliente cliente;
 
