@@ -1,9 +1,8 @@
 package com.alejobeliz.pentabyte.projects.mealapp.repository;
 
+import com.alejobeliz.pentabyte.projects.mealapp.model.cliente.Cliente;
 import com.alejobeliz.pentabyte.projects.mealapp.model.cliente.dto.ClienteDatosPersonalesDto;
 import com.alejobeliz.pentabyte.projects.mealapp.model.cliente.dto.ClienteDiasLaboralesDto;
-import com.alejobeliz.pentabyte.projects.mealapp.model.cliente.Cliente;
-import com.alejobeliz.pentabyte.projects.mealapp.model.cliente.dto.ClienteDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -33,4 +32,17 @@ public interface ClienteRepository extends JpaRepository<Cliente,Long> {
         """)
     Optional<Cliente> getClienteById(Long id);
 
+    @Query("""
+            SELECT c
+            FROM Cliente c
+            WHERE c.correo = :correo
+            """)
+    Optional<Cliente> findClienteByCorreo(String correo);
+
+    @Query("""
+            SELECT c.activo
+            FROM Cliente c
+            WHERE c.id = :id
+            """)
+    Boolean isActive(Long id);
 }

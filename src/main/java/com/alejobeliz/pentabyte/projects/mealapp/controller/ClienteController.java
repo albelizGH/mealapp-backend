@@ -1,5 +1,6 @@
 package com.alejobeliz.pentabyte.projects.mealapp.controller;
 
+import com.alejobeliz.pentabyte.projects.mealapp.dto.in.RegistroCliente;
 import com.alejobeliz.pentabyte.projects.mealapp.model.cliente.dto.ClienteDatosPersonalesDto;
 import com.alejobeliz.pentabyte.projects.mealapp.model.cliente.dto.ClienteDiasLaboralesDto;
 import com.alejobeliz.pentabyte.projects.mealapp.model.cliente.dto.ClienteDto;
@@ -7,8 +8,11 @@ import com.alejobeliz.pentabyte.projects.mealapp.service.ClienteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 
@@ -55,18 +59,45 @@ public class ClienteController {
 
     /*METODOS PATCH*/
     @PatchMapping("{id}/laboral")
-    public ResponseEntity<ClienteDiasLaboralesDto> setDiasLaborales(@PathVariable Long id, @RequestBody ClienteDiasLaboralesDto diasLaborales){
-        ClienteDiasLaboralesDto clienteDiasLaboralesDto = clienteService.setDiasLaborales(id,diasLaborales);
+    public ResponseEntity<ClienteDiasLaboralesDto> setDiasLaborales(@PathVariable Long id, @RequestBody ClienteDiasLaboralesDto diasLaborales) {
+        ClienteDiasLaboralesDto clienteDiasLaboralesDto = clienteService.setDiasLaborales(id, diasLaborales);
         return ResponseEntity.ok(clienteDiasLaboralesDto);
     }
 
     @PatchMapping("{id}/personal")
-    public ResponseEntity<ClienteDatosPersonalesDto> setDatosPersonales(@PathVariable Long id, @RequestBody @Valid ClienteDatosPersonalesDto datosPersonales){
-        ClienteDatosPersonalesDto clienteDatosPersonalesDto = clienteService.setDatosPersonales(id,datosPersonales);
+    public ResponseEntity<ClienteDatosPersonalesDto> setDatosPersonales(@PathVariable Long id, @RequestBody @Valid ClienteDatosPersonalesDto datosPersonales) {
+        ClienteDatosPersonalesDto clienteDatosPersonalesDto = clienteService.setDatosPersonales(id, datosPersonales);
         return ResponseEntity.ok(clienteDatosPersonalesDto);
     }
 
-    /*METODOS POST*/
+    @PatchMapping("{id}/activar")
+    @Transactional
+    public ResponseEntity<ClienteDto> activarCliente(@PathVariable Long id) {
+        ClienteDto clienteActivado = clienteService.activarCliente(id);
+        return ResponseEntity.ok(clienteActivado);
+    }
 
+    @PatchMapping("{id}/desactivar")
+    @Transactional
+    public ResponseEntity desactivarCliente(@PathVariable Long id) {
+        clienteService.desactivarCliente(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    /*METODOS POST*/
+    @PostMapping
+    public ResponseEntity<ClienteDto> registrarCliente(@RequestBody @Valid RegistroCliente nuevoCliente, UriComponentsBuilder uriComponentsBuilder) {
+        ClienteDto cliente = clienteService.registrarCliente(nuevoCliente);
+        URI uri = uriComponentsBuilder.path("/api/clientes/{id}").buildAndExpand(cliente.id()).toUri();
+        return ResponseEntity.created(uri).body(cliente);
+    }
+
+    /*METODOS DELETE*/
+    @DeleteMapping("{id}")
+    @Transactional
+    public ResponseEntity borrarCliente(@PathVariable Long id) {
+        clienteService.borrarCliente(id);
+        return ResponseEntity.noContent().build();
+    }
 
 }
