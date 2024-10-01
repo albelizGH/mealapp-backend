@@ -5,8 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
-public interface PedidoRepository extends JpaRepository<Pedido,Long> {
+public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 
     @Query("""
             SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END
@@ -14,4 +15,13 @@ public interface PedidoRepository extends JpaRepository<Pedido,Long> {
                 WHERE p.cliente.id = :idCliente AND p.semanaDeEntrega = :fecha
             """)
     boolean existePedidoConEsaFecha(Long idCliente, LocalDate fecha);
+
+
+    @Query("""
+            SELECT p
+                FROM Pedido p
+                WHERE p.cliente.id = :idCliente AND p.semanaDeEntrega = :fecha
+            """)
+    Optional<Pedido> PedidoConFecha(Long idCliente, LocalDate fecha);
+
 }
