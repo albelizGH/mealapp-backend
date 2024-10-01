@@ -24,7 +24,7 @@ public class DetallePedido {
     @Column(name = "cantidad")
     private Integer cantidad;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne()
     @JoinColumn(name = "pedido_dia_id")
     private PedidoDia pedidoDia;
 
