@@ -1,6 +1,6 @@
 package com.alejobeliz.pentabyte.projects.mealapp.repository;
 
-import com.alejobeliz.pentabyte.projects.mealapp.model.pedidosdia.PedidoDia;
+import com.alejobeliz.pentabyte.projects.mealapp.model.pedidodia.PedidoDia;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

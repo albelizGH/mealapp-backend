@@ -1,4 +1,4 @@
-package com.alejobeliz.pentabyte.projects.mealapp.model.pedidosdia;
+package com.alejobeliz.pentabyte.projects.mealapp.model.pedidodia;
 
 import com.alejobeliz.pentabyte.projects.mealapp.model.pedido.Pedido;
 import jakarta.persistence.*;

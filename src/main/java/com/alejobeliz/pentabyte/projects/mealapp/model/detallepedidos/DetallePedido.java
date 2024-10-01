@@ -1,6 +1,6 @@
 package com.alejobeliz.pentabyte.projects.mealapp.model.detallepedidos;
 
-import com.alejobeliz.pentabyte.projects.mealapp.model.pedidosdia.PedidoDia;
+import com.alejobeliz.pentabyte.projects.mealapp.model.pedidodia.PedidoDia;
 import com.alejobeliz.pentabyte.projects.mealapp.model.plato.Plato;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

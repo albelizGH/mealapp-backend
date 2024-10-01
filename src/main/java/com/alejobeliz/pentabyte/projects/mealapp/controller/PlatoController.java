@@ -31,5 +31,9 @@ public class PlatoController {
         return ResponseEntity.ok(platoDto);
     }
 
+    /*METODOS PATCH*/
+
+    //Hacer metodo para agregar o quitar de favoritos
+
 }
 
