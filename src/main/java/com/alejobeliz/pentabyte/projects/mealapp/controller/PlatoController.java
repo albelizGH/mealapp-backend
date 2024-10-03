@@ -1,7 +1,6 @@
 package com.alejobeliz.pentabyte.projects.mealapp.controller;
 
 import com.alejobeliz.pentabyte.projects.mealapp.model.plato.dto.PlatoDto;
-
 import com.alejobeliz.pentabyte.projects.mealapp.service.PlatoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +17,17 @@ public class PlatoController {
         this.platoService = platoService;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping()
     public List<PlatoDto> getPlatos(){
         return platoService.getAllPlatos();
     }
+
+  /*  @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/all")
+    public List<PlatoCardDto> getPlatosPorTipo(@RequestParam(defaultValue = "Plato") String tipo){
+        return platoService.getAllPlatos();
+    }*/
 
 
     @CrossOrigin(origins = "http://localhost:4200")

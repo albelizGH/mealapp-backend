@@ -58,12 +58,14 @@ public class ClienteController {
     }
 
     /*METODOS PATCH*/
+    @CrossOrigin(origins = "http://localhost:4200")
     @PatchMapping("{id}/laboral")
     public ResponseEntity<ClienteDiasLaboralesDto> setDiasLaborales(@PathVariable Long id, @RequestBody ClienteDiasLaboralesDto diasLaborales) {
         ClienteDiasLaboralesDto clienteDiasLaboralesDto = clienteService.setDiasLaborales(id, diasLaborales);
         return ResponseEntity.ok(clienteDiasLaboralesDto);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PatchMapping("{id}/personal")
     public ResponseEntity<ClienteDatosPersonalesDto> setDatosPersonales(@PathVariable Long id, @RequestBody @Valid ClienteDatosPersonalesDto datosPersonales) {
         ClienteDatosPersonalesDto clienteDatosPersonalesDto = clienteService.setDatosPersonales(id, datosPersonales);

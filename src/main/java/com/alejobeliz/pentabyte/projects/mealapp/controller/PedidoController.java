@@ -41,7 +41,7 @@ public class PedidoController {
     /*METODOS DELETE*/
     @DeleteMapping("cliente/{idCliente}/ultimo")
     @Transactional
-    public ResponseEntity eliminarPedido(@PathVariable Long idCliente) {
+    public ResponseEntity eliminarUltimoPedido(@PathVariable Long idCliente) {
         pedidoService.eliminarUlitmoPedido(idCliente);
         return ResponseEntity.noContent().build();
     }

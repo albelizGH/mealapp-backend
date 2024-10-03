@@ -110,12 +110,14 @@ public class PedidoService {
         List<DetallePedido> detallePedidos = detallePedidoRepository.findDetallePedidosByPedidoDiaId(pedidoDiaIds);
 
         List<PedidoDiaDto> comidasPorDia = pedidosDias.stream().map(pd -> {
+
             List<DetallePedidoDto> detalles = detallePedidos.stream()
                     .filter(d -> d.getPedidoDia().getId().equals(pd.getId()))
                     .map(d -> new DetallePedidoDto(d, d.getPlato()))
                     .collect(Collectors.toList());
 
             return new PedidoDiaDto(pd.getId(), pd.getDia().name(), detalles);
+
         }).collect(Collectors.toList());
 
         return new PedidoSemanalDto(pedidoDb.getId(), pedidoDb.getFechaDePedido().toString(), pedidoDb.getEstado(), comidasPorDia);
@@ -129,6 +131,8 @@ public class PedidoService {
 
         Pedido pedidoDb = pedidoRepository.PedidoConFecha(idCliente, proximoLunes)
                 .orElseThrow(() -> new EntityNotFoundException("No se encuentra un pedido asignado a la fecha de entrega: " + proximoLunes.toString()));
+
+        validadorDePedidos.forEach(validacion->validacion.validar(pedidoDb));
 
         pedidoRepository.delete(pedidoDb);
 
