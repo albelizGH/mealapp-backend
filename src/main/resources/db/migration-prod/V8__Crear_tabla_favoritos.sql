@@ -1,6 +1,8 @@
 CREATE TABLE `favoritos` (
+	`id` BIGINT(19) NOT NULL AUTO_INCREMENT,
 	`cliente_id` BIGINT(19) NULL DEFAULT NULL,
 	`plato_id` BIGINT(19) NULL DEFAULT NULL,
+	PRIMARY KEY (`id`) USING BTREE,
 	INDEX `fk_cliente_favoritos` (`cliente_id`) USING BTREE,
 	INDEX `fk_plato_favoritos` (`plato_id`) USING BTREE,
 	CONSTRAINT `fk_cliente_favoritos` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`) ON UPDATE NO ACTION ON DELETE CASCADE,
