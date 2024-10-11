@@ -40,4 +40,5 @@ public class Plato {
     @ManyToOne(fetch = FetchType.EAGER)//Si traigo un plato que el tipo de plato ya venga cargado
     @JoinColumn(name = "tipo_plato_id")
     private TipoDePlato tipoDePlato;
+
 }

@@ -22,7 +22,7 @@ public class PedidoController {
 
     /*METODOS GET*/
 
-    @GetMapping("cliente/{idCliente}/ultimo")
+    @GetMapping("ultimo/cliente/{idCliente}")
     public ResponseEntity<PedidoSemanalDto> getPedidoProximaSemana(@PathVariable Long idCliente) {
         PedidoSemanalDto pedido = pedidoService.getPedidoProximaSemana(idCliente);
         return ResponseEntity.ok(pedido);
@@ -39,7 +39,7 @@ public class PedidoController {
     }
 
     /*METODOS DELETE*/
-    @DeleteMapping("cliente/{idCliente}/ultimo")
+    @DeleteMapping("ultimo/cliente/{idCliente}")
     @Transactional
     public ResponseEntity eliminarUltimoPedido(@PathVariable Long idCliente) {
         pedidoService.eliminarUlitmoPedido(idCliente);

@@ -23,14 +23,6 @@ public class PlatoController {
         return platoService.getAllPlatos();
     }
 
-  /*  @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/all")
-    public List<PlatoCardDto> getPlatosPorTipo(@RequestParam(defaultValue = "Plato") String tipo){
-        return platoService.getAllPlatos();
-    }*/
-
-
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{id}")
     public ResponseEntity<PlatoDto> getCliente(@PathVariable Long id) {
         PlatoDto platoDto = platoService.getPlato(id);
