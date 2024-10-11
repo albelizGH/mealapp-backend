@@ -24,4 +24,9 @@ public class Favorito {
     @ManyToOne()
     @JoinColumn(name = "plato_id")
     private Plato plato;
+
+    public Favorito(Cliente cliente,Plato plato){
+        this.cliente=cliente;
+        this.plato=plato;
+    }
 }
