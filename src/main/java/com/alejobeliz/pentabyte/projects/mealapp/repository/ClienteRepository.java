@@ -5,9 +5,10 @@ import com.alejobeliz.pentabyte.projects.mealapp.model.cliente.dto.ClienteDatosP
 import com.alejobeliz.pentabyte.projects.mealapp.model.cliente.dto.ClienteDiasLaboralesDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
-
+@Repository
 public interface ClienteRepository extends JpaRepository<Cliente,Long> {
 
     @Query("""
