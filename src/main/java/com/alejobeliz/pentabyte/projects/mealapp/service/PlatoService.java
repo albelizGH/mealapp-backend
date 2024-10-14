@@ -1,5 +1,6 @@
 package com.alejobeliz.pentabyte.projects.mealapp.service;
 
+import com.alejobeliz.pentabyte.projects.mealapp.dto.out.DetalleDiarioDto;
 import com.alejobeliz.pentabyte.projects.mealapp.dto.out.PlatoCompletoDto;
 import com.alejobeliz.pentabyte.projects.mealapp.mapper.Mapper;
 import com.alejobeliz.pentabyte.projects.mealapp.model.plato.dto.PlatoDto;
@@ -37,8 +38,9 @@ public class PlatoService {
         return platoDto;
     }
 
-    public Page<PlatoCompletoDto> getPlatosPorDiaYTipo(Long idCliente, String dia, String tipoDePlato, Pageable paginacion) {
+    public DetalleDiarioDto getDetalleDiario(Long idCliente, String dia, String tipoDePlato, Pageable paginacion) {
         LocalDate inicioDeSemana = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-        return platoRepository.getPlatoDtoByClienteIdAndInicioDeSemanaAndDiaAndTipoDePlato(idCliente,inicioDeSemana,dia,tipoDePlato,paginacion);
+        Page<PlatoCompletoDto> platos = platoRepository.getPlatoDtoByClienteIdAndInicioDeSemanaAndDiaAndTipoDePlato(idCliente,inicioDeSemana,dia,tipoDePlato,paginacion);
+        return new DetalleDiarioDto(dia,platos);
     }
 }

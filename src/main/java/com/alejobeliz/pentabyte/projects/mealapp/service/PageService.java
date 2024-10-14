@@ -1,5 +1,6 @@
 package com.alejobeliz.pentabyte.projects.mealapp.service;
 
+import com.alejobeliz.pentabyte.projects.mealapp.dto.out.DetalleDiarioDto;
 import com.alejobeliz.pentabyte.projects.mealapp.dto.out.DiasLaboralesDto;
 import com.alejobeliz.pentabyte.projects.mealapp.dto.out.MenuSemanalDto;
 import com.alejobeliz.pentabyte.projects.mealapp.dto.out.PlatoCompletoDto;
@@ -74,8 +75,8 @@ public class PageService {
 
         Page<PlatoCompletoDto> platosPrincipalesDelDia = platoRepository.getPlatoDtoByClienteIdAndInicioDeSemanaAndDiaAndTipoDePlato(idCliente, inicioDeSemana, primerDiaLaboralActivo.toLowerCase(), "Principal", paginacion);
 
-        MenuSemanalDto.DetalleDiarioDto detalleDiarioDto = new MenuSemanalDto.DetalleDiarioDto(primerDiaLaboralActivo, platosPrincipalesDelDia);
-        List<MenuSemanalDto.DetalleDiarioDto> detallesDiarios = new ArrayList<>();
+        DetalleDiarioDto detalleDiarioDto = new DetalleDiarioDto(primerDiaLaboralActivo, platosPrincipalesDelDia);
+        List<DetalleDiarioDto> detallesDiarios = new ArrayList<>();
         detallesDiarios.add(detalleDiarioDto);
         MenuSemanalDto menuSemanalDto = new MenuSemanalDto(idCliente, diasLaboralesDtos, detallesDiarios);
 

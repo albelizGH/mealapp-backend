@@ -1,9 +1,8 @@
 package com.alejobeliz.pentabyte.projects.mealapp.controller;
 
-import com.alejobeliz.pentabyte.projects.mealapp.dto.out.PlatoCompletoDto;
+import com.alejobeliz.pentabyte.projects.mealapp.dto.out.DetalleDiarioDto;
 import com.alejobeliz.pentabyte.projects.mealapp.model.plato.dto.PlatoDto;
 import com.alejobeliz.pentabyte.projects.mealapp.service.PlatoService;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -34,9 +33,9 @@ public class PlatoController {
     }
 
     @GetMapping("/disponibles")
-    public ResponseEntity<Page<PlatoCompletoDto>> getPlatosPorDiaYTipo(@RequestParam Long idCliente, @RequestParam String dia, @RequestParam String tipoDePlato, @PageableDefault(size = 10,sort = "id", direction = Sort.Direction.ASC) Pageable paginacion){
-        Page<PlatoCompletoDto> platos  = platoService.getPlatosPorDiaYTipo(idCliente,dia,tipoDePlato,paginacion);
-        return ResponseEntity.ok(platos);
+    public ResponseEntity<DetalleDiarioDto> getPlatosPorDiaYTipo(@RequestParam Long idCliente, @RequestParam String dia, @RequestParam String tipoDePlato, @PageableDefault(size = 10,sort = "id", direction = Sort.Direction.ASC) Pageable paginacion){
+        DetalleDiarioDto detalle = platoService.getDetalleDiario(idCliente,dia,tipoDePlato,paginacion);
+        return ResponseEntity.ok(detalle);
     }
 
     /*METODOS PATCH*/
