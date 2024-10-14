@@ -1,7 +1,5 @@
 package com.alejobeliz.pentabyte.projects.mealapp.dto.out;
 
-import org.springframework.data.domain.Page;
-
 import java.util.List;
 
 public record MenuSemanalDto(
@@ -10,10 +8,7 @@ public record MenuSemanalDto(
         List<DetalleDiarioDto> detallesDiarios
 ) {
 
-    public static record DetalleDiarioDto(
-    String dia,
-    Page<PlatoCompletoDto> platos
-    ){}
+
 
 
 }
