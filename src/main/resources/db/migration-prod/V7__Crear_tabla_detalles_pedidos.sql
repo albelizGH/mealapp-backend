@@ -7,7 +7,7 @@ CREATE TABLE `detalles_pedidos` (
 	PRIMARY KEY (`id`) USING BTREE,
 	INDEX `fk_pedido_dia` (`pedido_dia_id`) USING BTREE,
 	INDEX `fk_plato` (`plato_id`) USING BTREE,
-	CONSTRAINT `FK_detalles_pedidos_pedidos_dia` FOREIGN KEY (`pedido_dia_id`) REFERENCES `pedidos_dia` (`id`) ON UPDATE NO ACTION ON DELETE CASCADE,
+	CONSTRAINT `FK_detalles_pedidos_pedidos_dia` FOREIGN KEY (`pedido_dia_id`) REFERENCES `pedidos_diarios` (`id`) ON UPDATE NO ACTION ON DELETE CASCADE,
 	CONSTRAINT `fk_plato` FOREIGN KEY (`plato_id`) REFERENCES `platos` (`id`) ON UPDATE NO ACTION ON DELETE CASCADE
 )
 COLLATE='utf8mb4_0900_ai_ci'
