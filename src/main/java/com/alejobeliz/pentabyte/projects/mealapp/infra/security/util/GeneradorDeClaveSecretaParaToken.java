@@ -5,7 +5,7 @@ import java.util.Base64;
 
 public class GeneradorDeClaveSecretaParaToken {
 
-     public static void main(String[] args) {
+     public void generadorDeFirmas() {
             // Generar una clave secreta de 256 bits (32 bytes)
             SecureRandom secureRandom = new SecureRandom();
             byte[] key = new byte[32];
