@@ -1,6 +1,6 @@
 package com.alejobeliz.pentabyte.projects.mealapp.pedidoSemanal.controller;
 
-import com.alejobeliz.pentabyte.projects.mealapp.infra.security.service.SecurityService;
+import com.alejobeliz.pentabyte.projects.mealapp.infra.security.SecurityContextService;
 import com.alejobeliz.pentabyte.projects.mealapp.pedidoSemanal.dto.PedidoSemanalDtoIn;
 import com.alejobeliz.pentabyte.projects.mealapp.pedidoSemanal.dto.PedidoSemanalDto;
 import com.alejobeliz.pentabyte.projects.mealapp.pedidoSemanal.service.PedidoService;
@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.*;
 public class PedidoController {
 
     private PedidoService pedidoService;
-    private final SecurityService securityService;
+    private final SecurityContextService securityContextService;
 
     @Autowired
-    public PedidoController(SecurityService securityService, PedidoService pedidoService) {
-        this.securityService = securityService;
+    public PedidoController(SecurityContextService securityContextService, PedidoService pedidoService) {
+        this.securityContextService = securityContextService;
         this.pedidoService = pedidoService;
     }
 
@@ -27,7 +27,7 @@ public class PedidoController {
 
     @GetMapping("ultimo")
     public ResponseEntity<PedidoSemanalDto> getPedidoProximaSemana() {
-        PedidoSemanalDto pedido = pedidoService.getPedidoProximaSemana(securityService.getIdDeUsuarioDesdeAuthenticated());
+        PedidoSemanalDto pedido = pedidoService.getPedidoProximaSemana(securityContextService.getIdDeUsuarioDesdeAuthenticated());
         return ResponseEntity.ok(pedido);
     }
 
@@ -37,7 +37,7 @@ public class PedidoController {
     @PostMapping
     @Transactional
     public ResponseEntity crearPedidoSemanal(@RequestBody @Valid PedidoSemanalDtoIn pedido) {
-        pedidoService.crearNuevoPedido(pedido,securityService.getIdDeUsuarioDesdeAuthenticated());
+        pedidoService.crearNuevoPedido(pedido, securityContextService.getIdDeUsuarioDesdeAuthenticated());
         return ResponseEntity.ok().build();
     }
 
@@ -45,7 +45,7 @@ public class PedidoController {
     @DeleteMapping("ultimo")
     @Transactional
     public ResponseEntity eliminarUltimoPedido() {
-        pedidoService.eliminarUlitmoPedido(securityService.getIdDeUsuarioDesdeAuthenticated());
+        pedidoService.eliminarUlitmoPedido(securityContextService.getIdDeUsuarioDesdeAuthenticated());
         return ResponseEntity.noContent().build();
     }
 

@@ -2,7 +2,7 @@ package com.alejobeliz.pentabyte.projects.mealapp.cliente.controller.administrad
 
 import com.alejobeliz.pentabyte.projects.mealapp.cliente.dto.ClienteDto;
 import com.alejobeliz.pentabyte.projects.mealapp.cliente.service.ClienteService;
-import com.alejobeliz.pentabyte.projects.mealapp.infra.security.service.SecurityService;
+import com.alejobeliz.pentabyte.projects.mealapp.infra.security.SecurityContextService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,12 +16,12 @@ import java.util.List;
 public class ClienteControllerAdmin {
 
     private final ClienteService clienteService;
-    private final SecurityService securityService;
+    private final SecurityContextService securityContextService;
 
     @Autowired
-    public ClienteControllerAdmin(ClienteService clienteService, SecurityService securityService) {
+    public ClienteControllerAdmin(ClienteService clienteService, SecurityContextService securityContextService) {
         this.clienteService = clienteService;
-        this.securityService = securityService;
+        this.securityContextService = securityContextService;
     }
 
     /*METODOS GET*/
@@ -42,7 +42,7 @@ public class ClienteControllerAdmin {
     @DeleteMapping("{id}")
     @Transactional
     public ResponseEntity borrarCliente(@PathVariable Long id) {
-        clienteService.borrarCliente(securityService.getIdDeUsuarioDesdeAuthenticated());
+        clienteService.borrarCliente(securityContextService.getIdDeUsuarioDesdeAuthenticated());
         return ResponseEntity.noContent().build();
     }
 

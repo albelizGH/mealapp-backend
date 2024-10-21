@@ -16,7 +16,6 @@ public class ClienteUserDetail implements UserDetails {
         this.cliente = cliente;
     }
 
-    /* MÉTODOS QUE VIENEN DE USERDETAIL */
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

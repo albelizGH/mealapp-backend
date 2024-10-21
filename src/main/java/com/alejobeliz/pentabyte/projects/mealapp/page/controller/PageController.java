@@ -1,6 +1,6 @@
 package com.alejobeliz.pentabyte.projects.mealapp.page.controller;
 
-import com.alejobeliz.pentabyte.projects.mealapp.infra.security.service.SecurityService;
+import com.alejobeliz.pentabyte.projects.mealapp.infra.security.SecurityContextService;
 import com.alejobeliz.pentabyte.projects.mealapp.page.dto.MenuSemanalDto;
 import com.alejobeliz.pentabyte.projects.mealapp.page.service.PageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +17,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class PageController {
 
     private final PageService pageService;
-    private final SecurityService securityService;
+    private final SecurityContextService securityContextService;
 
     @Autowired
-    public PageController(PageService pageService, SecurityService securityService) {
+    public PageController(PageService pageService, SecurityContextService securityContextService) {
         this.pageService = pageService;
-        this.securityService = securityService;
+        this.securityContextService = securityContextService;
     }
 
     @GetMapping("/menu")
     public ResponseEntity<MenuSemanalDto> getMenuSemanal(@PageableDefault(size = 10,sort = "id", direction = Sort.Direction.ASC) Pageable paginacion){
-        MenuSemanalDto menuSemanalDto = pageService.getMenuSemanal(securityService.getIdDeUsuarioDesdeAuthenticated(),paginacion);
+        MenuSemanalDto menuSemanalDto = pageService.getMenuSemanal(securityContextService.getIdDeUsuarioDesdeAuthenticated(),paginacion);
         return ResponseEntity.ok(menuSemanalDto);
     }
 

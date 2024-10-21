@@ -1,4 +1,4 @@
-package com.alejobeliz.pentabyte.projects.mealapp.infra.security.token;
+package com.alejobeliz.pentabyte.projects.mealapp.infra.security;
 /**
  * Clase de registro que representa un token JWT.
  */

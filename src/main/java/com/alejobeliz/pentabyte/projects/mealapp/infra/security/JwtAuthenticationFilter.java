@@ -1,8 +1,6 @@
-package com.alejobeliz.pentabyte.projects.mealapp.infra.security.token;
+package com.alejobeliz.pentabyte.projects.mealapp.infra.security;
 
 import com.alejobeliz.pentabyte.projects.mealapp.infra.errores.excepciones.TokenNotFoundException;
-import com.alejobeliz.pentabyte.projects.mealapp.infra.security.ClienteUserDetail;
-import com.alejobeliz.pentabyte.projects.mealapp.infra.security.autenticacion.AutenticacionService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,18 +12,21 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.List;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
-    private final AutenticacionService autenticacionService;
+    private final UserDetailService userDetailService;
+    List<String> listaDeStrings = List.of("/api/auth", "/api/cliente/activar");
 
     @Autowired
-    public JwtAuthenticationFilter(JwtService jwtService, AutenticacionService autenticacionService) {
+    public JwtAuthenticationFilter(JwtService jwtService, UserDetailService userDetailService) {
         this.jwtService = jwtService;
-        this.autenticacionService = autenticacionService;
+        this.userDetailService = userDetailService;
     }
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -34,33 +35,32 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             // Obtener el URI de la solicitud
             String path = request.getRequestURI();
 
-            if (path.equals("/api/login") || path.equals("/api/cliente/activar")) {
-                filterChain.doFilter(request, response);
-                return; // Salir del método
+            for (String endpoint : listaDeStrings) {
+                if (path.contains(endpoint)) {
+                    filterChain.doFilter(request, response);
+                    return;
+                }
             }
 
-            //Obtener el token JWT de la solicitud
             String tokenJWT = obtenerToken(request);
+            jwtService.validarToken(tokenJWT);
+            String correo = jwtService.obtenerCorreoDelToken(tokenJWT);
+            ClienteUserDetail clienteUserDetail = userDetailService.loadUserByUsername(correo);
 
-            //Validar el token y obtener el correo del usuario
-            String correo = jwtService.validarYObtenerCorreoDelToken(tokenJWT);
+            if (!clienteUserDetail.isEnabled()) {
+                throw new IllegalStateException("El usuario con correo " + correo + " está inactivo.");
+            }
 
-            //Cargar los detalles del usuario (ClienteUserDetail)
-            ClienteUserDetail clienteUserDetail = autenticacionService.loadUserByUsername(correo);
-
-            //Verificar si ya hay una autenticación en el contexto de seguridad en el caso de que mas adelante añada algun otro filtro anterior a este que autentifique al usuario
             if (SecurityContextHolder.getContext().getAuthentication() == null) {
-
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(clienteUserDetail, null, clienteUserDetail.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
 
-            //Continuar con el filtro
             filterChain.doFilter(request, response);
+
         } catch (TokenNotFoundException | IllegalArgumentException e) {
             logger.error("Error de autenticación: " + e.getMessage());
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write("Token invalido o no proporcionado");
         }
     }
 
