@@ -1,8 +1,0 @@
-CREATE TABLE `tipos_plato` (
-	`id` BIGINT(19) NOT NULL AUTO_INCREMENT,
-	`nombre` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
-	PRIMARY KEY (`id`) USING BTREE
-)
-COLLATE='utf8mb4_0900_ai_ci'
-ENGINE=InnoDB
-;
