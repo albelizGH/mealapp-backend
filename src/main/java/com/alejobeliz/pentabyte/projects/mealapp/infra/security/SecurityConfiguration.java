@@ -27,23 +27,25 @@ public class SecurityConfiguration {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
-@Bean
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(req ->req
-                        .requestMatchers(HttpMethod.POST,"/api/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.PATCH, "/api/cliente/activar").permitAll()
-                        .requestMatchers("/api/cliente/**").hasRole("CLIENTE")
-                        .requestMatchers("/api/administrador/**").hasRole("ADMINISTRADOR")
-                        .requestMatchers("/api/local/**").hasRole("LOCAL")
-                        .anyRequest().authenticated()
+                .securityMatcher("/api/**")
+                .authorizeHttpRequests(req -> req
+                        .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll() // Permitir acceso a autenticación
+                        .requestMatchers(HttpMethod.PATCH, "/api/cliente/activar").permitAll() // Permitir activar cliente
+                        .requestMatchers("/api/cliente/**").hasRole("CLIENTE") // Rutas para CLIENTE
+                        .requestMatchers("/api/administrador/**").hasRole("ADMINISTRADOR") // Rutas para ADMINISTRADOR
+                        .requestMatchers("/api/local/**").hasRole("LOCAL") // Rutas para LOCAL
+                        .anyRequest().authenticated() // Cualquier otra solicitud requiere autenticación
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
+
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {

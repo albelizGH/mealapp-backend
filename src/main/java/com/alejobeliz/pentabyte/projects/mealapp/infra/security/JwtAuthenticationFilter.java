@@ -1,11 +1,14 @@
 package com.alejobeliz.pentabyte.projects.mealapp.infra.security;
 
 import com.alejobeliz.pentabyte.projects.mealapp.infra.errores.excepciones.TokenNotFoundException;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import jakarta.annotation.Nonnull;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -29,7 +32,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(@Nonnull HttpServletRequest request,@Nonnull HttpServletResponse response,@Nonnull FilterChain filterChain) throws ServletException, IOException {
         try {
 
             // Obtener el URI de la solicitud
@@ -43,8 +46,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
 
             String tokenJWT = obtenerToken(request);
-            jwtService.validarToken(tokenJWT);
-            String correo = jwtService.obtenerCorreoDelToken(tokenJWT);
+            DecodedJWT tokenDecodificado = jwtService.validarToken(tokenJWT);
+            String correo = jwtService.obtenerCorreoDelToken(tokenDecodificado);
             ClienteUserDetail clienteUserDetail = userDetailService.loadUserByUsername(correo);
 
             if (!clienteUserDetail.isEnabled()) {
@@ -66,7 +69,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     //Busco en el encabezado en la parte de Authorization primero que este, y si esta quito la parte de Bearer para quedarme con el token
     private String obtenerToken(HttpServletRequest request) {
-        var authorizationHeader = request.getHeader("Authorization");
+        var authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             return authorizationHeader.replace("Bearer ", "");
         }

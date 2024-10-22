@@ -95,6 +95,7 @@
 			<artifactId>java-jwt</artifactId>
 			<version>4.2.0</version>
 		</dependency>
+
 	</dependencies>
 
 	<build>

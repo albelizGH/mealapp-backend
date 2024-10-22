@@ -2,10 +2,13 @@ package com.alejobeliz.pentabyte.projects.mealapp.infra.security;
 
 import com.alejobeliz.pentabyte.projects.mealapp.cliente.Cliente;
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -21,7 +24,9 @@ public class JwtService {
     @Value("${jwt.expiration.time.seconds}")
     private int expiracionEnSegundos;
 
-    public String crearToken(Cliente cliente) {
+    public String crearToken(Authentication authentication) {
+        ClienteUserDetail clienteUserDetail = (ClienteUserDetail) authentication.getPrincipal();
+        Cliente cliente = clienteUserDetail.getCliente();
         try {
             Algorithm algorithm = Algorithm.HMAC256(secretKey);
             return JWT.create()
@@ -35,25 +40,21 @@ public class JwtService {
         }
     }
 
-    public void validarToken(String tokenJWT) {
+    public DecodedJWT validarToken(String tokenJWT) {
         try {
             Algorithm algoritmo = Algorithm.HMAC256(secretKey);
-            JWT.require(algoritmo)
+            JWTVerifier verifier=JWT.require(algoritmo)
                     .withIssuer("MealApp.Prep")
-                    .build()
-                    .verify(tokenJWT);
+                    .build();
+             DecodedJWT tokenDecodificado = verifier.verify(tokenJWT);
+             return tokenDecodificado;
         } catch (JWTVerificationException exception) {
             throw new IllegalArgumentException("Token JWT inválido o expirado: " + exception.getMessage(), exception);
         }
     }
 
-    public String obtenerCorreoDelToken(String tokenJWT) {
-        Algorithm algoritmo = Algorithm.HMAC256(secretKey);
-        return JWT.require(algoritmo)
-                .withIssuer("MealApp.Prep")
-                .build()
-                .verify(tokenJWT)
-                .getSubject();
+    public String obtenerCorreoDelToken(DecodedJWT tokenDecodificado) {
+        return tokenDecodificado.getSubject();
     }
 
     private Instant generarFechaExpiracion(Cliente cliente) {

@@ -5,7 +5,7 @@ import com.alejobeliz.pentabyte.projects.mealapp.autenticacion.service.Autentica
 import com.alejobeliz.pentabyte.projects.mealapp.cliente.dto.ClienteDto;
 import com.alejobeliz.pentabyte.projects.mealapp.cliente.dto.RegistroCliente;
 import com.alejobeliz.pentabyte.projects.mealapp.cliente.service.ClienteService;
-import com.alejobeliz.pentabyte.projects.mealapp.infra.security.TokenAcceso;
+import com.alejobeliz.pentabyte.projects.mealapp.infra.security.TokenWeb;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,9 +37,8 @@ public class AutenticacionController {
 
     @PostMapping("login")
     public ResponseEntity autenticarUsuario(@RequestBody @Valid CredencialesDto credenciales) {
-        TokenAcceso token = autenticacionService.autenticarLogin(credenciales);
+        TokenWeb token = autenticacionService.autenticarLogin(credenciales);
         return ResponseEntity.ok(token);
-
     }
 
 
