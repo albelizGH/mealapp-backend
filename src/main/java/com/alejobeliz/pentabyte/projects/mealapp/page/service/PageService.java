@@ -8,7 +8,6 @@ import com.alejobeliz.pentabyte.projects.mealapp.disponibilidad.repository.Dispo
 import com.alejobeliz.pentabyte.projects.mealapp.favorito.repository.FavoritoRepository;
 import com.alejobeliz.pentabyte.projects.mealapp.page.dto.MenuSemanalDto;
 import com.alejobeliz.pentabyte.projects.mealapp.pedidoDiario.dto.DetalleDiarioDto;
-import com.alejobeliz.pentabyte.projects.mealapp.pedidoSemanal.repository.PedidoSemanalRepository;
 import com.alejobeliz.pentabyte.projects.mealapp.plato.dto.PlatoOutDto;
 import com.alejobeliz.pentabyte.projects.mealapp.plato.repository.PlatoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,37 +31,15 @@ public class PageService {
     private FavoritoRepository favoritoRepository;
     private PlatoRepository platoRepository;
 
-
     @Autowired
-    public PageService(PedidoSemanalRepository pedidoSemanalRepository,
-                       ClienteRepository clienteRepository,
-                       DisponibilidadSemanalRepository disponibilidadSemanalRepository,
-                       FavoritoRepository favoritoRepository,
-                       PlatoRepository platoRepository) {
+    public PageService(ClienteRepository clienteRepository, DisponibilidadSemanalRepository disponibilidadSemanalRepository, FavoritoRepository favoritoRepository, PlatoRepository platoRepository) {
         this.clienteRepository = clienteRepository;
         this.disponibilidadSemanalRepository = disponibilidadSemanalRepository;
         this.favoritoRepository = favoritoRepository;
         this.platoRepository = platoRepository;
     }
 
-  /*  public MenuSemanalDto getMenuSemanal(Long idCliente, Pageable paginacion) {
-        List<DiasLaboralesDto> diasLaboralesDtos = getDiasLaborales(idCliente);
-        String primerDiaLaboralActivo = diasLaboralesDtos.stream().filter(dia -> dia.activo()).map(dia -> dia.dia()).findFirst().get();
-
-        LocalDate inicioDeSemana = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-
-        Page<PlatoCompletoDto> platosPrincipalesDelDia = platoRepository.getPlatoDtoByClienteIdAndInicioDeSemanaAndDiaAndTipoDePlato(idCliente, inicioDeSemana, primerDiaLaboralActivo.toLowerCase(), "Principal", paginacion);
-
-        List<MenuSemanalDto.DetalleDiarioDto> detallesDiarios = new ArrayList<>();
-        MenuSemanalDto.DetalleDiarioDto
-                detalleDiarioDto = new MenuSemanalDto.DetalleDiarioDto(primerDiaLaboralActivo, platosPrincipalesDelDia);
-        detallesDiarios.add(detalleDiarioDto);
-        MenuSemanalDto menuSemanalDto = new MenuSemanalDto(idCliente, diasLaboralesDtos, detallesDiarios);
-
-        return menuSemanalDto;
-    }*/
-
-    public MenuSemanalDto getMenuSemanal(Long idCliente, Pageable paginacion) {
+    public MenuSemanalDto getMenuSemanal(Long idCliente,Pageable paginacion) {
         List<DiasLaboralesDto> diasLaboralesDtos = getDiasLaborales(idCliente);
         Optional<String> primerDiaLaboralActivoOpt = diasLaboralesDtos.stream()
                 .filter(dia -> dia.activo())

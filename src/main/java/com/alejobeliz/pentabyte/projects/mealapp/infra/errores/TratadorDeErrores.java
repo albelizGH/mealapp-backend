@@ -37,4 +37,6 @@ public class TratadorDeErrores {
         );
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
+
 }
+

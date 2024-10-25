@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PageController {
 
     private final PageService pageService;
-    private final SecurityContextService securityContextService;
+    private SecurityContextService securityContextService;
 
     @Autowired
     public PageController(PageService pageService, SecurityContextService securityContextService) {
@@ -27,7 +27,8 @@ public class PageController {
 
     @GetMapping("/menu")
     public ResponseEntity<MenuSemanalDto> getMenuSemanal(@PageableDefault(size = 10,sort = "id", direction = Sort.Direction.ASC) Pageable paginacion){
-        MenuSemanalDto menuSemanalDto = pageService.getMenuSemanal(securityContextService.getIdDeUsuarioDesdeAuthenticated(),paginacion);
+        Long idCliente = securityContextService.getIdDeUsuarioDesdeAuthenticated();
+        MenuSemanalDto menuSemanalDto = pageService.getMenuSemanal(idCliente,paginacion);
         return ResponseEntity.ok(menuSemanalDto);
     }
 

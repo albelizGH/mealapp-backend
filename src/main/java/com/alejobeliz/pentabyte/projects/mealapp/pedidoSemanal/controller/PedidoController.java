@@ -27,7 +27,8 @@ public class PedidoController {
 
     @GetMapping("ultimo")
     public ResponseEntity<PedidoSemanalDto> getPedidoProximaSemana() {
-        PedidoSemanalDto pedido = pedidoService.getPedidoProximaSemana(securityContextService.getIdDeUsuarioDesdeAuthenticated());
+        Long idCliente = securityContextService.getIdDeUsuarioDesdeAuthenticated();
+        PedidoSemanalDto pedido = pedidoService.getPedidoProximaSemana(idCliente);
         return ResponseEntity.ok(pedido);
     }
 

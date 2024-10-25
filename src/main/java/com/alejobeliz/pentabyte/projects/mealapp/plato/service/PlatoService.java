@@ -1,9 +1,8 @@
 package com.alejobeliz.pentabyte.projects.mealapp.plato.service;
 
 import com.alejobeliz.pentabyte.projects.mealapp.pedidoDiario.dto.DetalleDiarioDto;
-import com.alejobeliz.pentabyte.projects.mealapp.plato.dto.PlatoOutDto;
-import com.alejobeliz.pentabyte.projects.mealapp.mapper.Mapper;
 import com.alejobeliz.pentabyte.projects.mealapp.plato.dto.PlatoDto;
+import com.alejobeliz.pentabyte.projects.mealapp.plato.dto.PlatoOutDto;
 import com.alejobeliz.pentabyte.projects.mealapp.plato.repository.PlatoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ public class PlatoService {
     private final PlatoRepository platoRepository;
 
     @Autowired
-    public PlatoService(PlatoRepository platoRepository, Mapper mapper) {
+    public PlatoService(PlatoRepository platoRepository) {
         this.platoRepository = platoRepository;
     }
 
@@ -38,7 +37,7 @@ public class PlatoService {
         return platoDto;
     }
 
-    public DetalleDiarioDto getDetalleDiario(Long idCliente, String dia, String tipoDePlato, Pageable paginacion) {
+    public DetalleDiarioDto getDetalleDiario(Long idCliente,String dia, String tipoDePlato, Pageable paginacion) {
         LocalDate inicioDeSemana = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         Page<PlatoOutDto> platos = platoRepository.getPlatoDtoByClienteIdAndInicioDeSemanaAndDiaAndTipoDePlato(idCliente,inicioDeSemana,dia,tipoDePlato,paginacion);
         return new DetalleDiarioDto(dia,platos);
