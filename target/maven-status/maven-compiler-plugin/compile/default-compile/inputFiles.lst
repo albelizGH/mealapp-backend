@@ -27,7 +27,6 @@ C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1
 C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\favorito\Favorito.java
 C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\favorito\repository\FavoritoRepository.java
 C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\favorito\service\FavoritoService.java
-C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\infra\configuration\Cors.java
 C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\infra\errores\ErrorPersonalizado.java
 C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\infra\errores\excepciones\TokenNotFoundException.java
 C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\infra\errores\TratadorDeErrores.java
