@@ -18,8 +18,10 @@ C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1
 C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\detalleDePedido\repository\DetalleDePedidoRepository.java
 C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\detalleDePedido\validaciones\ValidadorDeDetallesDePedidos.java
 C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\detalleDePedido\validaciones\ValidarCantidades.java
+C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\disponibilidad\controller\DisponibilidadController.java
 C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\disponibilidad\Disponibilidad.java
 C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\disponibilidad\repository\DisponibilidadSemanalRepository.java
+C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\disponibilidad\service\DisponibilidadService.java
 C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\favorito\controller\FavoritoController.java
 C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\favorito\dto\FavoritoDto.java
 C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\favorito\Favorito.java
@@ -39,9 +41,12 @@ C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1
 C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\infra\security\util\GeneradorDeClaveSecretaParaToken.java
 C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\mapper\Mapper.java
 C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\MealappApplication.java
-C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\page\controller\PageController.java
-C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\page\dto\MenuSemanalDto.java
-C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\page\service\PageService.java
+C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\page\cliente\controller\PageController.java
+C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\page\cliente\dto\MenuSemanalDto.java
+C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\page\cliente\service\PageService.java
+C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\page\local\dto\PedidoPageDto.java
+C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\page\local\PedidoPageController.java
+C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\page\local\service\PedidoPageService.java
 C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\pedidoDiario\Dia.java
 C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\pedidoDiario\dto\DetalleDiarioDto.java
 C:\Users\Alejo\Documents\IES\Practica profesionalizante I\Proyecto final-Grupo 1\Codigo\Backend\mealapp\src\main\java\com\alejobeliz\pentabyte\projects\mealapp\pedidoDiario\Estado.java

@@ -26,7 +26,5 @@ public interface DisponibilidadSemanalRepository extends JpaRepository<Disponibi
         END = true
 """)
     List<Plato> getDisponibilidadSemanalByFechaAndTipoDePlatoAndDia(LocalDate fechaDeInicio, String tipoDePlato, String dia);
-
-
 }
 

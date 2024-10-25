@@ -25,5 +25,4 @@ public interface PedidoSemanalRepository extends JpaRepository<PedidoSemanal, Lo
                 WHERE p.cliente.id = :idCliente AND p.semanaDeEntrega = :fecha
             """)
     Optional<PedidoSemanal> PedidoConFecha(Long idCliente, LocalDate fecha);
-
 }
