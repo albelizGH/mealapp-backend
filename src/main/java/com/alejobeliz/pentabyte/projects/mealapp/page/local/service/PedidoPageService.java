@@ -26,9 +26,9 @@ public class PedidoPageService {
        return pedidoDiarioRepository.getPedidosPorDiaFecha(dia,fecha,paginacion);
     }
 
-    public Page<PedidoPageDto> getPedidosVigentes(Dia dia, Pageable paginacion){
+    public Page<PedidoPageDto> getPedidosVigentes(Pageable paginacion){
         LocalDate fechaActual=LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
-        return  pedidoDiarioRepository.getPedidosPorDiaFecha(dia,fechaActual,paginacion);
+        return  pedidoDiarioRepository.getPedidosVigentes(fechaActual,paginacion);
     }
 
 

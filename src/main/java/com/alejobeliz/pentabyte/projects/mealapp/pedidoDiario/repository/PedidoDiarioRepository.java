@@ -42,4 +42,23 @@ public interface PedidoDiarioRepository extends JpaRepository<PedidoDiario, Long
             """)
     Page<PedidoPageDto> getPedidosPorDiaFecha(Dia dia, LocalDate fecha, Pageable paginacion);
 
+    @Query("""
+                SELECT new com.alejobeliz.pentabyte.projects.mealapp.page.local.dto.PedidoPageDto(
+                        pd.id,
+                        cl.id,
+                        cl.nombre,
+                        cl.apellido,
+                        p.nombre,
+                        p.tipoDePlato.nombre,
+                        dp.cantidad,
+                        dp.comentario,
+                        pd.estado)
+                FROM DetalleDePedido dp
+                JOIN dp.pedidoDiario pd
+                JOIN dp.plato p
+                JOIN pd.pedidoSemanal ps
+                JOIN ps.cliente cl
+                WHERE pd.fechaDeEntrega = :fecha
+            """)
+    Page<PedidoPageDto> getPedidosVigentes(LocalDate fecha, Pageable paginacion);
 }

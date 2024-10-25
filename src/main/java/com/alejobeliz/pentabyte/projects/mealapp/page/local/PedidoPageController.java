@@ -30,8 +30,8 @@ public class PedidoPageController {
     }
 
     @GetMapping("pedidos/vigentes")
-    public ResponseEntity<Page<PedidoPageDto>> getPedidosVigente(Dia dia, @PageableDefault(size = 10,page = 0)Pageable paginacion){
-        Page<PedidoPageDto> pedidos=pedidoPageService.getPedidosVigentes(dia,paginacion);
+    public ResponseEntity<Page<PedidoPageDto>> getPedidosVigente(@PageableDefault(size = 10,page = 0)Pageable paginacion){
+        Page<PedidoPageDto> pedidos=pedidoPageService.getPedidosVigentes(paginacion);
         return ResponseEntity.ok(pedidos);
     }
 
