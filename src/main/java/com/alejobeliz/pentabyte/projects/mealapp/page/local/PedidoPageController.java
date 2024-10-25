@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 
 @RestController
 @RequestMapping("/api/local/pages")
@@ -24,15 +26,23 @@ public class PedidoPageController {
 
 
     @GetMapping("pedidos")
-    public ResponseEntity<Page<PedidoPageDto>> getPedidosPorDiaYFecha(@RequestParam Dia dia, @RequestParam LocalDate fecha, @PageableDefault(size = 10,page = 0)Pageable paginacion){
-        Page<PedidoPageDto> pedidos = pedidoPageService.getPedidosPorDiaFecha(dia,fecha,paginacion);
+    public ResponseEntity<Page<PedidoPageDto>> getPedidosPorDiaYFecha(@RequestParam Dia dia, @RequestParam LocalDate fecha, @PageableDefault(size = 10, page = 0) Pageable paginacion) {
+        Page<PedidoPageDto> pedidos = pedidoPageService.getPedidosPorDiaFecha(dia, fecha, paginacion);
         return ResponseEntity.ok(pedidos);
     }
 
     @GetMapping("pedidos/vigentes")
-    public ResponseEntity<Page<PedidoPageDto>> getPedidosVigente(@PageableDefault(size = 10,page = 0)Pageable paginacion){
-        Page<PedidoPageDto> pedidos=pedidoPageService.getPedidosVigentes(paginacion);
-        return ResponseEntity.ok(pedidos);
+    public ResponseEntity<Page<PedidoPageDto>> getPedidosVigente(@RequestParam(required = false) Dia dia,@PageableDefault(size = 10, page = 0) Pageable paginacion) {
+
+        if (dia == null) {
+            Page<PedidoPageDto> pedidos = pedidoPageService.getPedidosVigentes(paginacion);
+            return ResponseEntity.ok(pedidos);
+        } else {
+            LocalDate fechaActual = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+            Page<PedidoPageDto> pedidos = pedidoPageService.getPedidosPorDiaFecha(dia, fechaActual, paginacion);
+            return ResponseEntity.ok(pedidos);
+        }
     }
+
 
 }
