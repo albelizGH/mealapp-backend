@@ -32,7 +32,7 @@ public class PedidoPageController {
     }
 
     @GetMapping("pedidos/vigentes")
-    public ResponseEntity<Page<PedidoPageDto>> getPedidosVigente(@RequestParam(required = false) Dia dia,@PageableDefault(size = 10, page = 0) Pageable paginacion) {
+    public ResponseEntity<Page<PedidoPageDto>> getPedidosVigente(@RequestParam(required = false) Dia dia,@PageableDefault(size = 10, page = 0,sort = "cl.nombre") Pageable paginacion) {
 
         if (dia == null) {
             Page<PedidoPageDto> pedidos = pedidoPageService.getPedidosVigentes(paginacion);

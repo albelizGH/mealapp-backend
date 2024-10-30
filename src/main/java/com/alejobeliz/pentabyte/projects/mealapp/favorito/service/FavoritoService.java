@@ -32,13 +32,13 @@ public class FavoritoService {
     }
 
     public List<PlatoOutDto> getFavoritesById(Long idCliente) {
-        Cliente clienteDb = clienteRepository.getClienteById(idCliente).orElseThrow(() -> new EntityNotFoundException("No se encuentra el cliente con id: " + idCliente));
-        return favoritoRepository.findAllByClienteId(idCliente).stream().map(plato -> new PlatoOutDto(plato.getId(),plato.getNombre(),plato.getDescripcion(),plato.getEtiqueta(),plato.getImagen(),plato.getCantidadMaxima(),plato.getTipoDePlato().toString(),true)).collect(Collectors.toUnmodifiableList());
+        Cliente clienteDb = clienteRepository.getClienteById(idCliente).get();
+        return favoritoRepository.findAllByClienteId(idCliente).stream().map(plato -> new PlatoOutDto(plato.getId(),plato.getNombre(),plato.getDescripcion(),plato.getEtiqueta(),plato.getImagen(),plato.getCantidadMaxima(),plato.getTipoDePlato().getNombre().toString(),true)).collect(Collectors.toUnmodifiableList());
     }
 
     @Transactional
     public FavoritoDto agregarPlatoAFavoritos(Long idCliente, Long idPlato){
-        Cliente clienteDb = clienteRepository.getClienteById(idCliente).orElseThrow(() -> new EntityNotFoundException("No se encuentra el cliente con id: " + idCliente));
+        Cliente clienteDb = clienteRepository.getClienteById(idCliente).get();
         Plato platoDb = platoRepository.findPlatoById(idPlato).orElseThrow(() -> new EntityNotFoundException("No se encuentra el plato con id: " + idPlato));
         Optional<Favorito> favoritoDb = favoritoRepository.findFavoritoByClienteIdAndId(idCliente,idPlato);
         if(favoritoDb.isPresent()){
