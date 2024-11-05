@@ -16,15 +16,21 @@ import com.alejobeliz.pentabyte.projects.mealapp.pedidoDiario.Dia;
 import com.alejobeliz.pentabyte.projects.mealapp.pedidoDiario.PedidoDiario;
 import com.alejobeliz.pentabyte.projects.mealapp.pedidoDiario.PedidoDiaDto;
 import com.alejobeliz.pentabyte.projects.mealapp.plato.Plato;
+import com.alejobeliz.pentabyte.projects.mealapp.plato.dto.PlatoDto;
 import com.alejobeliz.pentabyte.projects.mealapp.plato.repository.PlatoRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,42 +58,42 @@ public class PedidoService {
         this.platoRepository = platoRepository;
         this.detalleDePedidoRepository = detalleDePedidoRepository;
         this.validadorDePedidoSemanales = validadorDePedidoSemanales;
-        this.validadorDeDetallesDePedidos=validadorDeDetallesDePedidos;
+        this.validadorDeDetallesDePedidos = validadorDeDetallesDePedidos;
     }
 
 
-    public void crearNuevoPedido(PedidoSemanalDtoIn pedidoEntrante,Long idCliente){
+    public void crearNuevoPedido(PedidoSemanalDtoIn pedidoEntrante, Long idCliente) {
 
         //Comprobamos si no existe un pedido con esa fecha para el pedido usando la fecha de entrega ya que la de pedido varia segun el dia
         LocalDate semana = LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.MONDAY));
-        boolean verificarPedidoExistente = pedidoSemanalRepository.existePedidoConEsaFecha(idCliente,semana);
+        boolean verificarPedidoExistente = pedidoSemanalRepository.existePedidoConEsaFecha(idCliente, semana);
 
-        if(verificarPedidoExistente){
+        if (verificarPedidoExistente) {
             throw new RuntimeException("Ya existe un pedido creado para la semana siguiente");
         }
 
         Cliente clienteDb = clienteRepository.getClienteById(idCliente).get();
 
         PedidoSemanal pedidoSemanal = new PedidoSemanal(clienteDb);
-        validadorDePedidoSemanales.forEach(validador->validador.validar(pedidoSemanal));
+        validadorDePedidoSemanales.forEach(validador -> validador.validar(pedidoSemanal));
         pedidoSemanalRepository.save(pedidoSemanal);
 
-        for(PedidoSemanalDtoIn.ComidaPorDia comidaPorDiaDto: pedidoEntrante.comidasPorDia()){
+        for (PedidoSemanalDtoIn.ComidaPorDia comidaPorDiaDto : pedidoEntrante.comidasPorDia()) {
             Dia dia = Dia.valueOf(comidaPorDiaDto.dia());
 
             PedidoDiario pedidoDiario = new PedidoDiario(dia, pedidoSemanal);
 
             pedidoDiarioRepository.save(pedidoDiario);
 
-            for(PedidoSemanalDtoIn.ComidaPorDia.DetallePedido detalleDePedido:comidaPorDiaDto.detalles()){
+            for (PedidoSemanalDtoIn.ComidaPorDia.DetallePedido detalleDePedido : comidaPorDiaDto.detalles()) {
                 Plato platoDb = platoRepository.getReferenceById(detalleDePedido.platoId());
-                DetalleDePedido detallePedido=new DetalleDePedido();
+                DetalleDePedido detallePedido = new DetalleDePedido();
                 detallePedido.setCantidad(detalleDePedido.cantidad());
                 detallePedido.setComentario(detalleDePedido.comentario());
                 detallePedido.setPedidoDiario(pedidoDiario);
                 detallePedido.setPlato(platoDb);
 
-                validadorDeDetallesDePedidos.forEach(validador->validador.validar(detallePedido,platoDb));
+                validadorDeDetallesDePedidos.forEach(validador -> validador.validar(detallePedido, platoDb));
 
                 detalleDePedidoRepository.save(detallePedido);
 
@@ -113,12 +119,12 @@ public class PedidoService {
 
         List<PedidoDiaDto> comidasPorDia = pedidosDias.stream().map(pd -> {
 
-            List<DetallePedidoDto> detalles = detalleDePedidos.stream()
+            List<PlatoDto> platos = detalleDePedidos.stream()
                     .filter(d -> d.getPedidoDiario().getId().equals(pd.getId()))
-                    .map(d -> new DetallePedidoDto(d, d.getPlato()))
+                    .map(d -> new PlatoDto(d.getPlato()))
                     .collect(Collectors.toList());
 
-            return new PedidoDiaDto(pd.getId(), pd.getDia().name(),pd.getFechaDeEntrega(), detalles);
+            return new PedidoDiaDto(pd.getId(), pd.getDia().name(), pd.getFechaDeEntrega(), platos);
 
         }).collect(Collectors.toList());
 
@@ -132,9 +138,17 @@ public class PedidoService {
         PedidoSemanal pedidoSemanalDb = pedidoSemanalRepository.PedidoConFecha(idCliente, proximoLunes)
                 .orElseThrow(() -> new EntityNotFoundException("No se encuentra un pedido asignado a la fecha de entrega: " + proximoLunes.toString()));
 
-        validadorDePedidoSemanales.forEach(validacion->validacion.validar(pedidoSemanalDb));
+        validadorDePedidoSemanales.forEach(validacion -> validacion.validar(pedidoSemanalDb));
 
         pedidoSemanalRepository.delete(pedidoSemanalDb);
 
     }
+
+
+    public void eliminarPedido(Long id) {
+        PedidoSemanal pedidosemanal = pedidoSemanalRepository.getById(id);
+        pedidoSemanalRepository.delete(pedidosemanal);
+    }
 }
+
+

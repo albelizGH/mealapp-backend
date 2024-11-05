@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Size;
 
 import java.util.List;
 public record PedidoSemanalDtoIn(
+        Long id,
         @Size(min = 1, message = "Debe agregar al menos la comida de un día.")
         List<ComidaPorDia> comidasPorDia
         ) {
