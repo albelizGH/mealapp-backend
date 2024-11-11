@@ -11,7 +11,10 @@ public record PlatoDto(
         String etiqueta,
         String imagen,
         Integer cantidadMaxima,
-        String tipo
+        String tipo,
+        Integer cantidad,
+        String comentario
+
 ) {
     public PlatoDto {
     }
@@ -23,7 +26,8 @@ public record PlatoDto(
         plato.getEtiqueta(),
         plato.getImagen(),
         plato.getCantidadMaxima(),
-        plato.getTipoDePlato().getNombre());
+        plato.getTipoDePlato().getNombre(),
+        0,"");
     }
 
 }

@@ -2,12 +2,15 @@ package com.alejobeliz.pentabyte.projects.mealapp.plato.controller;
 
 import com.alejobeliz.pentabyte.projects.mealapp.infra.security.SecurityContextService;
 import com.alejobeliz.pentabyte.projects.mealapp.pedidoDiario.dto.DetalleDiarioDto;
+import com.alejobeliz.pentabyte.projects.mealapp.plato.dto.PlatoCreate;
 import com.alejobeliz.pentabyte.projects.mealapp.plato.dto.PlatoDto;
 import com.alejobeliz.pentabyte.projects.mealapp.plato.service.PlatoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,8 +30,8 @@ public class PlatoController {
     }
 
     @GetMapping()
-    public List<PlatoDto> getPlatos(){
-        return platoService.getAllPlatos();
+    public ResponseEntity<List<PlatoCreate>> getPlatos(){
+        return ResponseEntity.ok(platoService.getAllPlatos());
     }
 
     @GetMapping("/{id}")
@@ -42,6 +45,12 @@ public class PlatoController {
         Long idCliente = securityContextService.getIdDeUsuarioDesdeAuthenticated();
         DetalleDiarioDto detalle = platoService.getDetalleDiario(idCliente,dia,tipoDePlato,paginacion);
         return ResponseEntity.ok(detalle);
+    }
+
+    @PostMapping
+    public ResponseEntity createPlatos(@RequestBody @Valid PlatoCreate platoCreate){
+        platoService.crearPlato(platoCreate);
+        return ResponseEntity.status(HttpStatusCode.valueOf(201)).build();
     }
 
 

@@ -7,6 +7,7 @@ import java.util.List;
 public record PedidoSemanalDto(
         Long id,
         String fechaDePedido,
+        Integer cantidadDePlatosTotales,
         List<PedidoDiaDto> comidasPorDia
 ) {
 }

@@ -13,6 +13,7 @@ com\alejobeliz\pentabyte\projects\mealapp\page\local\PedidoPageController.class
 com\alejobeliz\pentabyte\projects\mealapp\cliente\dto\ClienteDiasLaboralesDto.class
 com\alejobeliz\pentabyte\projects\mealapp\pedidoSemanal\dto\PedidoSemanalDtoIn.class
 com\alejobeliz\pentabyte\projects\mealapp\pedidoSemanal\PedidoSemanal.class
+com\alejobeliz\pentabyte\projects\mealapp\plato\dto\PlatoCreate.class
 com\alejobeliz\pentabyte\projects\mealapp\cliente\dto\RegistroCliente.class
 com\alejobeliz\pentabyte\projects\mealapp\mapper\Mapper.class
 com\alejobeliz\pentabyte\projects\mealapp\cliente\Cliente.class

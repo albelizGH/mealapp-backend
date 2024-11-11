@@ -1,36 +1,31 @@
 package com.alejobeliz.pentabyte.projects.mealapp.pedidoSemanal.service;
 
+import com.alejobeliz.pentabyte.projects.mealapp.cliente.Cliente;
 import com.alejobeliz.pentabyte.projects.mealapp.cliente.repository.ClienteRepository;
+import com.alejobeliz.pentabyte.projects.mealapp.detalleDePedido.DetalleDePedido;
 import com.alejobeliz.pentabyte.projects.mealapp.detalleDePedido.repository.DetalleDePedidoRepository;
+import com.alejobeliz.pentabyte.projects.mealapp.detalleDePedido.validaciones.ValidadorDeDetallesDePedidos;
+import com.alejobeliz.pentabyte.projects.mealapp.pedidoDiario.Dia;
+import com.alejobeliz.pentabyte.projects.mealapp.pedidoDiario.PedidoDiaDto;
+import com.alejobeliz.pentabyte.projects.mealapp.pedidoDiario.PedidoDiario;
 import com.alejobeliz.pentabyte.projects.mealapp.pedidoDiario.repository.PedidoDiarioRepository;
 import com.alejobeliz.pentabyte.projects.mealapp.pedidoSemanal.PedidoSemanal;
-import com.alejobeliz.pentabyte.projects.mealapp.pedidoSemanal.dto.PedidoSemanalDtoIn;
 import com.alejobeliz.pentabyte.projects.mealapp.pedidoSemanal.dto.PedidoSemanalDto;
-import com.alejobeliz.pentabyte.projects.mealapp.cliente.Cliente;
-import com.alejobeliz.pentabyte.projects.mealapp.detalleDePedido.DetalleDePedido;
-import com.alejobeliz.pentabyte.projects.mealapp.detalleDePedido.dto.DetallePedidoDto;
-import com.alejobeliz.pentabyte.projects.mealapp.detalleDePedido.validaciones.ValidadorDeDetallesDePedidos;
+import com.alejobeliz.pentabyte.projects.mealapp.pedidoSemanal.dto.PedidoSemanalDtoIn;
 import com.alejobeliz.pentabyte.projects.mealapp.pedidoSemanal.repository.PedidoSemanalRepository;
 import com.alejobeliz.pentabyte.projects.mealapp.pedidoSemanal.validaciones.ValidadorDePedidosSemanales;
-import com.alejobeliz.pentabyte.projects.mealapp.pedidoDiario.Dia;
-import com.alejobeliz.pentabyte.projects.mealapp.pedidoDiario.PedidoDiario;
-import com.alejobeliz.pentabyte.projects.mealapp.pedidoDiario.PedidoDiaDto;
 import com.alejobeliz.pentabyte.projects.mealapp.plato.Plato;
 import com.alejobeliz.pentabyte.projects.mealapp.plato.dto.PlatoDto;
 import com.alejobeliz.pentabyte.projects.mealapp.plato.repository.PlatoRepository;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,10 +61,15 @@ public class PedidoService {
 
         //Comprobamos si no existe un pedido con esa fecha para el pedido usando la fecha de entrega ya que la de pedido varia segun el dia
         LocalDate semana = LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.MONDAY));
-        boolean verificarPedidoExistente = pedidoSemanalRepository.existePedidoConEsaFecha(idCliente, semana);
+//        boolean verificarPedidoExistente = pedidoSemanalRepository.existePedidoConEsaFecha(idCliente, semana);
+//
+//        if (verificarPedidoExistente) {
+//            throw new RuntimeException("Ya existe un pedido creado para la semana siguiente");
 
-        if (verificarPedidoExistente) {
-            throw new RuntimeException("Ya existe un pedido creado para la semana siguiente");
+        Optional<PedidoSemanal> pedidoExistente = pedidoSemanalRepository.PedidoConFecha(idCliente,semana);
+
+        if(pedidoExistente.isPresent()){
+            pedidoSemanalRepository.delete(pedidoExistente.get());
         }
 
         Cliente clienteDb = clienteRepository.getClienteById(idCliente).get();
@@ -117,18 +117,30 @@ public class PedidoService {
 
         List<DetalleDePedido> detalleDePedidos = detalleDePedidoRepository.findDetallePedidosByPedidoDiaId(pedidoDiaIds);
 
-        List<PedidoDiaDto> comidasPorDia = pedidosDias.stream().map(pd -> {
+        Integer cantidadDePlatos=0;
 
+        List<PedidoDiaDto> comidasPorDia = pedidosDias.stream().map(pd -> {
             List<PlatoDto> platos = detalleDePedidos.stream()
                     .filter(d -> d.getPedidoDiario().getId().equals(pd.getId()))
-                    .map(d -> new PlatoDto(d.getPlato()))
-                    .collect(Collectors.toList());
-
+                    .map(d -> new PlatoDto(
+                            d.getPlato().getId(),
+                            d.getPlato().getNombre(),
+                            d.getPlato().getDescripcion(),
+                            d.getPlato().getEtiqueta(),
+                            d.getPlato().getImagen(),
+                            d.getPlato().getCantidadMaxima(),
+                            d.getPlato().getTipoDePlato().getNombre(),
+                            d.getCantidad(),
+                            d.getComentario()
+                    )).collect(Collectors.toList());
             return new PedidoDiaDto(pd.getId(), pd.getDia().name(), pd.getFechaDeEntrega(), platos);
-
         }).collect(Collectors.toList());
 
-        return new PedidoSemanalDto(pedidoSemanalDb.getId(), pedidoSemanalDb.getFechaDePedido().toString(), comidasPorDia);
+        for(PedidoDiaDto pedido : comidasPorDia){
+            cantidadDePlatos+=pedido.platos().size();
+        }
+
+        return new PedidoSemanalDto(pedidoSemanalDb.getId(), pedidoSemanalDb.getFechaDePedido().toString(),cantidadDePlatos,comidasPorDia);
     }
 
     public void eliminarUlitmoPedido(Long idCliente) {

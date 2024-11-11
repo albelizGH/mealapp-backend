@@ -1,7 +1,7 @@
 package com.alejobeliz.pentabyte.projects.mealapp.plato.repository;
 
-import com.alejobeliz.pentabyte.projects.mealapp.plato.dto.PlatoOutDto;
 import com.alejobeliz.pentabyte.projects.mealapp.plato.Plato;
+import com.alejobeliz.pentabyte.projects.mealapp.plato.dto.PlatoOutDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -46,6 +46,4 @@ public interface PlatoRepository extends JpaRepository<Plato, Long> {
         END = true
 """)
     Page<PlatoOutDto> getPlatoDtoByClienteIdAndInicioDeSemanaAndDiaAndTipoDePlato(Long clienteId, LocalDate inicioDeSemana, String dia, String tipoDePlato, Pageable pageable);
-
-
 }

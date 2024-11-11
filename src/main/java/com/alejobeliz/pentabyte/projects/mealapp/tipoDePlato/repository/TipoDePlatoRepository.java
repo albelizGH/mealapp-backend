@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TipoDePlatoRepository extends JpaRepository<TipoDePlato,Long> {
+
+    TipoDePlato findByNombre(String tipo);
 }

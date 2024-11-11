@@ -4,11 +4,9 @@ import com.alejobeliz.pentabyte.projects.mealapp.tipoDePlato.TipoDePlato;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity(name = "Plato")
 @Table(name = "platos")
 public class Plato {
@@ -35,10 +33,15 @@ public class Plato {
     private Integer stock;
 
     @Column(name = "cantidad_veces_pedido")
-    private static Integer cantidadDeVecesPedido;
+    private Integer cantidadDeVecesPedido;
 
     @ManyToOne(fetch = FetchType.EAGER)//Si traigo un plato que el tipo de plato ya venga cargado
     @JoinColumn(name = "tipo_plato_id")
     private TipoDePlato tipoDePlato;
+
+    public Plato(){
+        this.cantidadDeVecesPedido=0;
+    }
+
 
 }
